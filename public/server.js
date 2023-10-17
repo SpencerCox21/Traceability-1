@@ -44,15 +44,15 @@ app.post('/api/students', (req, res) => {
            students.push(name)
            res.status(200).send(students)
        } else if (name === ''){
-            rollbar.critical('The User tried to enter in a nameless student.')
+            rollbar.warning('The User tried to enter in a nameless student.')
             res.status(400).send('You must enter a name.')
        } else {
             rollbar.critical('The User added in a student that already exists.')
             res.status(400).send('That student already exists.')
        }
    } catch (err) {
-       console.log('My bobios fuction did not work at All!')
-       rollbar.critical('Student Submittion error: student submittion function did not work.')
+       console.log('Student Submission error: student submittion function did not work.')
+       rollbar.critical('Student Submission error: student submittion function did not work.')
    }
 })
 
