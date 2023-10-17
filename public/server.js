@@ -19,7 +19,7 @@ rollbar.log('Hello world!')
 
 app.use(express.json())
 
-const students = ['Jimmy', 'Timothy', 'Jimothy']
+const students = ['Jimmy', 'Timmy', 'Tommy']
 
 app.get('/', (req, res) => {
     rollbar.info('Someone is using the app.')
@@ -40,18 +40,19 @@ app.post('/api/students', (req, res) => {
    })
 
    try {
-    // bobbios()
        if (index === -1 && name !== '') {
            students.push(name)
            res.status(200).send(students)
        } else if (name === ''){
-           res.status(400).send('You must enter a name.')
+            rollbar.critical('The User tried to enter in a nameless student.')
+            res.status(400).send('You must enter a name.')
        } else {
-           res.status(400).send('That student already exists.')
+            rollbar.critical('The User added in a student that already exists.')
+            res.status(400).send('That student already exists.')
        }
    } catch (err) {
        console.log('My bobios fuction did not work at All!')
-    //    rollbar.critical('The bobbio error did not work.')
+       rollbar.critical('Student Submittion error: student submittion function did not work.')
    }
 })
 
